@@ -801,7 +801,7 @@
                         "[concat('https://cdn.f5.com/product/cloudsolutions/f5-appsvcs-extension/', variables('f5AS3Tag'), '/dist/lts/', variables('f5AS3Build'))]",
                         "[concat('https://cdn.f5.com/product/cloudsolutions/iapps/common/f5-service-discovery/', variables('f5CloudIappsSdTag'), '/f5.service_discovery.tmpl')]",
                         "[concat('https://cdn.f5.com/product/cloudsolutions/iapps/common/f5-cloud-logger/', variables('f5CloudIappsLoggerTag'), '/f5.cloud_logger.v1.0.0.tmpl')]",
-                        "https://github.com/F5Networks/f5-declarative-onboarding/raw/master/dist/f5-declarative-onboarding-1.3.0-4.noarch.rpm"
+                        "http://212.121.177.168/repository/f5-declarative-onboarding-1.3.0-4.noarch.rpm"
                     ]
                 },
                 "type": "CustomScript",
