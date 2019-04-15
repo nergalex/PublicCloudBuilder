@@ -527,7 +527,7 @@
             "Standard_GS4",
             "Standard_GS5"
         ],
-        "customConfig": "[concat('#!/bin/bash\nFN=f5-declarative-onboarding-1.3.0-4.noarch.rpm\nCREDS=admin:', variables('adminPassword'), '\nIP=', variables('mgmtSubnetPrivateAddress'), '\nDATA=\"{\\\"operation\\\":\\\"INSTALL\\\",\\\"packageFilePath\\\":\\\"/var/config/rest/downloads/$FN\\\"}\"\n/usr/bin/tmsh modify auth user admin password ', variables('adminPassword'), '\ncd /var/lib/waagent/custom-script/download/\ncp `ls -r | head -1`/f5-declarative-onboarding-* /var/config/rest/downloads/curl -kvu $CREDS \"https://$IP/mgmt/shared/iapp/package-management-tasks\" -H \"Origin: https://$IP\" -H \"Content-Type: application/json;charset=UTF-8\" --data $DATA\ncurl -sku $CREDS https://$IP/mgmt/shared/declarative-onboarding\n')]",
+        "customConfig": "[concat('FN=f5-declarative-onboarding-1.3.0-4.noarch.rpm\nCREDS=admin:', variables('adminPassword'), '\nIP=', variables('mgmtSubnetPrivateAddress'), '\nDATA=\"{\\\"operation\\\":\\\"INSTALL\\\",\\\"packageFilePath\\\":\\\"/var/config/rest/downloads/$FN\\\"}\"\n/usr/bin/tmsh modify auth user admin password ', variables('adminPassword'), '\ncd /var/lib/waagent/custom-script/download/\ncp `ls -r | head -1`/f5-declarative-onboarding-* /var/config/rest/downloads/\ncurl -kvu $CREDS \"https://$IP/mgmt/shared/iapp/package-management-tasks\" -H \"Origin: https://$IP\" -H \"Content-Type: application/json;charset=UTF-8\" --data $DATA\ncurl -sku $CREDS https://$IP/mgmt/shared/declarative-onboarding\n')]",
         "installCustomConfig": "[concat(variables('singleQuote'), '#!/bin/bash\n', variables('customConfig'), variables('singleQuote'))]",
         "osProfiles": {
             "password": {
