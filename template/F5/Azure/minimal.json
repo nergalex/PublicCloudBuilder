@@ -129,17 +129,10 @@
             },
             "type": "string"
         },
-        "avSetChoice": {
-            "defaultValue": "CREATE_NEW",
+        "availabilitySetName": {
+            "defaultValue": "my_avset",
             "metadata": {
-                "description": "If you want the VM placed in a new Azure Availability Set, leave the default value of **CREATE_NEW**, otherwise specify the name of the existing Availability Set you want to use. Note: If you are using an existing AV Set, this deployment must be in the same Azure Resource Group as the AV Set."
-            },
-            "type": "string"
-        },
-        "declarationUrl": {
-            "defaultValue": "NOT_SPECIFIED",
-            "metadata": {
-                "description": "URL for the AS3 (https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/3.5.1/) declaration JSON file to be deployed. Leave as **NOT_SPECIFIED** to deploy without a service configuration."
+                "description": "specify the name of the existing Availability Set you want to use."
             },
             "type": "string"
         },
@@ -316,6 +309,7 @@
                 "linuxConfiguration": "[variables('linuxConfiguration')]"
             }
         },
+        "availabilitySetName": "[parameters('availabilitySetName')]",
         "f5ODTag": "f5-declarative-onboarding-1.3.0-4.noarch.rpm",
         "f5AS3Tag": "f5-appsvcs-3.10.0-5.noarch.rpm",
         "script_declaratavive_onboarding": "[concat('FN=', variables('f5ODTag'), '\nCREDS=admin:', variables('adminPassword'), '\nIP=', variables('mgmtSubnetPrivateAddress'), '\nDATA=\"{\\\"operation\\\":\\\"INSTALL\\\",\\\"packageFilePath\\\":\\\"/var/config/rest/downloads/$FN\\\"}\"\n/usr/bin/tmsh modify auth user admin password ', variables('adminPassword'), '\ncd /var/lib/waagent/custom-script/download/\ncp `ls -r | head -1`/f5-declarative-onboarding-* /var/config/rest/downloads/\ncurl -kvu $CREDS \"https://$IP/mgmt/shared/iapp/package-management-tasks\" -H \"Origin: https://$IP\" -H \"Content-Type: application/json;charset=UTF-8\" --data $DATA\ncurl -sku $CREDS https://$IP/mgmt/shared/declarative-onboarding\n')]",
