@@ -1,0 +1,1 @@
+  [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FF5Networks%2Ff5-azure-arm-templates%2Fv6.0.4.0%2Fsupported%2Fstandalone%2F3nic%2Fexisting-stack%2Fbyol%2Fazuredeploy.json)
