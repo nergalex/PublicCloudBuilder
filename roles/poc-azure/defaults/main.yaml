@@ -29,6 +29,7 @@ design_hub:
     - external
     - sslo_inbound
     - sslo_outbound
+    - pan_dataplane
 
 
 

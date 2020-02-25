@@ -76,6 +76,16 @@
     security_group_name: "nsg-{{ extra_platform_name }}-internal"
     route_table: "rt-{{ extra_platform_name }}-sslo_outbound"
 
+- name: Create Subnet pan_dataplane
+  delegate_to: localhost
+  azure_rm_subnet:
+    resource_group: "rg-{{ extra_platform_name }}"
+    virtual_network: "vnet-{{ extra_platform_name }}"
+    name: "net-{{ extra_platform_name }}-pan_dataplane"
+    address_prefix: "{{ extra_pan_dataplane_subnet_address_prefix }}"
+    security_group_name: "nsg-{{ extra_platform_name }}-internal"
+    route_table: "rt-{{ extra_platform_name }}-pan_dataplane"
+
 - name: Create Public IP Address for VPN GW
   delegate_to: localhost
   azure_rm_publicipaddress:
