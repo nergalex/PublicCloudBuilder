@@ -14,13 +14,8 @@
     },
     "local_licence": {
       "class": "License",
-        "licenseType": "licensePool",
-        "bigIqHost": "{{ extra_bigiq_ip_mgt }}",
-        "bigIqUsername": "{{ extra_bigiq_admin_user }}",
-        "bigIqPassword": "{{ extra_bigiq_admin_password }}",
-        "licensePool": "{{ extra_project_name }}",
-        "bigIpUsername": "{{ extra_admin_user }}",
-        "bigIpPassword": "{{ extra_admin_password }}"
+      "licenseType": "regKey",
+      "regKey": "{{ extra_reg_key }}"
     },
     "provisioning_sslo": {
          "class": "Provision",
@@ -158,12 +153,6 @@
       "class": "Route",
       "gw": "{{ extra_gw_internal }}",
       "network": "{{ extra_route_internal_prefix }}/{{ extra_route_internal_mask }}",
-      "mtu": 1500
-    },
-    "route_monitor_failover": {
-      "class": "Route",
-      "gw": "{{ extra_gw_internal }}",
-      "network": "168.63.129.16",
       "mtu": 1500
     },
     "configsync": {
