@@ -26,7 +26,6 @@ design_common:
 design_hub:
   vrf:
     - internal
-    - external
     - sslo_inbound
     - sslo_outbound
     - pan_dataplane
