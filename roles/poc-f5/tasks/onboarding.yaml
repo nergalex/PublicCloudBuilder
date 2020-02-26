@@ -20,7 +20,7 @@
     user: "admin"
     password: "{{ extra_admin_password }}"
     validate_certs: no
-    body: "{{ lookup('template', 'do-failover-5nic-master_node-BIGIQ.json') }}"
+    body: "{{ lookup('template', 'do-failover-5nic-master_node-PAYG.json') }}"
     body_format: json
     timeout: 300
     status_code: 200, 202
