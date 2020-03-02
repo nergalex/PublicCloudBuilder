@@ -159,12 +159,10 @@
       "class": "ConfigSync",
       "configsyncIp": "{{ extra_ip_int_self_static }}"
     },
-    {%- if not extra_cluster_network_failover -%}
-      "failoverAddress": {
-        "class": "FailoverUnicast",
-        "address": "{{ extra_ip_int_self_static }}"
-      },
-    {%- endif -%}
+    "failoverAddress": {
+      "class": "FailoverUnicast",
+      "address": "{{ extra_ip_int_self_static }}"
+    },
     "failoverGroup-{{ extra_platform_name }}-{{ extra_cluster_name }}": {
       "class": "DeviceGroup",
       "type": "sync-failover",
