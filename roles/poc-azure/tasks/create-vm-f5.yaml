@@ -125,19 +125,6 @@
         primary: false
     enable_ip_forwarding: true
 
-- name: CREATE a storage account
-  delegate_to: localhost
-  azure_rm_storageaccount:
-    resource_group: "rg-{{ extra_platform_name }}"
-    location: "{{ extra_location }}"
-    name: "f5{{ extra_vm_name }}data000"
-    type: Standard_LRS
-    kind: Storage
-    https_only: true
-    tags: "{{ extra_platform_tags }}
-      Name={{ extra_vm_name }}
-      owner={{ owner }}"
-
 - name: CREATE VM SSLO
   delegate_to: localhost
   azure_rm_virtualmachine:
@@ -167,7 +154,6 @@
       publisher: f5-networks
     managed_disk_type: Standard_LRS
     os_type: Linux
-    storage_account_name: "f5{{ extra_vm_name }}data000"
     network_interface_names:
       - "nic-{{ extra_platform_name }}-{{ extra_vm_name }}-management"
       - "nic-{{ extra_platform_name }}-{{ extra_vm_name }}-external"
