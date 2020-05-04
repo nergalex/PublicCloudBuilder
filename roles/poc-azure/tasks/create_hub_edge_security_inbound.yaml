@@ -286,6 +286,7 @@
       - name: "hc-http-local"
         port: 80
         protocol: Http
+        request_path: '/'
         interval: 5
         fail_count: 2
     load_balancing_rules:
