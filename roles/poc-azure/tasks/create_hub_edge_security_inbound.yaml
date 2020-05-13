@@ -334,7 +334,7 @@
   delegate_to: localhost
   azure_rm_loadbalancer:
     resource_group: "rg-{{ extra_platform_name }}"
-    name: "ilb-{{ extra_platform_name }}-pan"
+    name: "ilb-{{ extra_platform_name }}-pan_dataplane"
     location: "{{ extra_location }}"
     sku: Standard
     frontend_ip_configurations:
@@ -375,9 +375,10 @@
     backend_address_pools:
       - name: "pool-{{ extra_platform_name }}-internal"
     probes:
-      - name: "hc-tcp-443"
-        port: 443
-        protocol: Tcp
+      - name: "hc-http-local"
+        port: 80
+        protocol: Http
+        request_path: '/'
         interval: 5
         fail_count: 2
     load_balancing_rules:
@@ -388,7 +389,7 @@
         load_distribution: Default
         frontend_port: 0
         backend_port: 0
-        probe: "hc-tcp-443"
+        probe: "hc-http-local"
 
 - name: VRF NGINX - CREATE route to VIP via ILB AWAF
   delegate_to: localhost
@@ -411,6 +412,16 @@
     next_hop_type: 'virtual_appliance'
     next_hop_ip_address: '{{ extra_lb_pan_vip }}'
   loop: "{{ extra_vip_address_list_nginx_second_line }}"
+
+- name: VRF external - CREATE route to ILB NGINX via ILB PAN
+  delegate_to: localhost
+  azure_rm_route:
+    resource_group: "rg-{{ extra_platform_name }}"
+    route_table_name: "rt-{{ extra_platform_name }}-external"
+    name: "redir-ilb-nginx-to-PAN"
+    address_prefix: '{{ extra_lb_internal_vip }}/32'
+    next_hop_type: 'virtual_appliance'
+    next_hop_ip_address: '{{ extra_lb_pan_vip }}'
 
 - name: VRF pan_dataplane - CREATE route to VIP via ILB NGINX
   delegate_to: localhost
@@ -446,6 +457,7 @@
     key=ike_lifetime (second);value=28800;help=VirtualNetworkGatewayConnections;
     key=esp_lifetime (second);value=27000;help=VirtualNetworkGatewayConnections;
     "
+
 
 
 
