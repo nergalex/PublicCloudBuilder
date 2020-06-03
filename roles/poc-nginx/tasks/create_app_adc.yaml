@@ -1,0 +1,9 @@
+---
+- name: CREATE conf App
+  copy: content="{{ lookup('template', 'app_adc.conf') }}" dest="/etc/nginx/conf.d/{{ extra_app_name | lower }}.conf"
+
+- name: reload nginx
+  service:
+    name: nginx
+    state: reloaded
+...
