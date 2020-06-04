@@ -1,0 +1,36 @@
+---
+- name: INIT list_regkey_devices
+  set_fact:
+    list_regkey_devices: "{{ lookup('template', 'set_regkey_devices.json') }}"
+
+- debug:
+    var: list_regkey_devices
+
+- name: Revoke licence for absent Slaves
+  delegate_to: localhost
+  bigiq_regkey_license_assignment:
+    pool: "{{ extra_project_name }}-{{ extra_vmss_name }}"
+    device: "{{ item.management }}"
+    managed: no
+    device_username: "{{ extra_admin_user }}"
+    device_password: "{{ extra_admin_password }}"
+    device_port: "{{ extra_port_mgt }}"
+    key: "{{ item.regkey }}"
+    state: absent
+    provider:
+      user: "{{ extra_bigiq_admin_user }}"
+      password: "{{ extra_bigiq_admin_password }}"
+      server: "{{ extra_bigiq_ip_mgt }}"
+      server_port: "{{ extra_bigiq_port_mgt }}"
+      validate_certs: no
+  loop: "{{ list_regkey_devices }}"
+
+
+
+
+
+
+
+
+
+...

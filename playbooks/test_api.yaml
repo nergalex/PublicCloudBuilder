@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - debug:
+        msg : "{{ lookup('env','AZURE_CLIENT_ID') }}"
+
+    - name: Authorization
+      uri:
+        url: https://login.microsoftonline.com/{{ lookup('env','AZURE_TENANT') }}/oauth2/v2.0/token
+        method: POST
+        body: resource=https%3A%2F%2Fmanagement.core.windows.net%2F&client_id={{ lookup('env','AZURE_CLIENT_ID') }}&grant_type=client_credentials&client_secret={{ lookup('env','AZURE_SECRET') }}
+        return_content: yes
+        headers:
+          Content-Type: application/x-www-form-urlencoded
+        register: authresp
+
+
+    - name: URI GET
+      delegate_to: localhost
+      uri:
+        url: "https://management.azure.com/subscriptions/{{ lookup('env','AZURE_SUBSCRIPTION_ID') }}/resourceGroups/rg-hub1/providers/Microsoft.Network/virtualNetworkGateways/vnet_gw-hub1?api-version=2019-07-01"
+        method: GET
+        headers:                                                                 
+          Authorization: "Bearer {{ authresp.json.access_token }}"                                     
+        body_format: json                                                                 
