@@ -199,7 +199,7 @@ Create and launch a workflow template `wf-create_vmss_device-group_awaf` that in
 | `extra_webhook_email`                   | NGINX+ certificate | `al.dacosta@f5.com` |
 | `extra_webhook_vm_name`                 | NGINX+ certificate | `autoscale-f5` |
 
-## NGINX north | NGINX App Protect
+## NGINX south | NGINX ADC
 Create and launch a workflow template `wf-create_vmss_nginx_adc` that include those Job templates in this order:
 
 | Job name      | objective     | playbook      | activity      | inventory     | limit         | credential    |
