@@ -77,12 +77,12 @@
     },
     "failoverGroup-awaf": {
       "class": "DeviceGroup",
-      "type": "sync-only",
+      "type": "sync-failover",
       "members": {{ var_failoverGroup_members }},
-      "owner": "/Common/failoverGroup-{{ extra_vmss_name }}/members/0",
+      "owner": "/Common/failoverGroup-awaf/members/0",
       "autoSync": true,
       "saveOnAutoSync": false,
-      "networkFailover": false,
+      "networkFailover": true,
       "fullLoadOnSync": false,
       "asmSync": true
     },
@@ -90,7 +90,7 @@
       "class": "DeviceTrust",
       "localUsername": "admin",
       "localPassword": "{{ extra_admin_password }}",
-      "remoteHost": "/Common/failoverGroup-{{ extra_vmss_name }}/members/0",
+      "remoteHost": "/Common/failoverGroup-awaf/members/0",
       "remoteUsername": "admin",
       "remotePassword": "{{ extra_admin_password }}"
     }

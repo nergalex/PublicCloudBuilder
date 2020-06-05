@@ -121,6 +121,28 @@
     - item.dataplane in list_nodes_to_onboard
     - item.protect_from_scale_in != "True"
 
+- name: check UP status new Slaves - Update the Device Group in the declaration with the new member list.
+  uri:
+    url: https://{{ item.management }}/mgmt/shared/
+    method: GET
+    user: "admin"
+    password: "{{ extra_admin_password }}"
+    follow_redirects: none
+    validate_certs: no
+    body: "{{ lookup('template', 'do-vmss-slave-2nic-awaf-BIGIQ.json') }}"
+    body_format: json
+    timeout: 300
+    status_code: 200, 202
+  register: result_httpd
+  until: result_httpd.status == 401
+  retries: 120
+  delay: 5
+  ignore_errors: yes
+  loop: "{{ stats_self_ips }}"
+  when:
+    - item.dataplane in list_nodes_to_onboard
+    - item.protect_from_scale_in != "True"
+
 - name: onboarding new Slaves - Update the Device Group in the declaration with the new member list.
   uri:
     url: https://{{ item.management }}/mgmt/shared/declarative-onboarding

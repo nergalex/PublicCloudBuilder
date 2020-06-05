@@ -47,11 +47,6 @@
                     "profileHTTP": {
                         "use": "profile_http_{{ extra_app.name }}"
                     },
-                    {% if extra_compression is sameas true or extra_compression == 'true' %}
-                    "profileHTTPCompression": {
-                        "bigip": "/Common/wan-optimized-compression"
-                    },
-                    {% endif %}
                     "policyWAF": {
                         "use": "waf_policy_{{ extra_app.name }}"
                     },
@@ -66,7 +61,7 @@
                         {
                             "servicePort": {{ pool.servicePort }},
                             "serverAddresses": {{ pool.serverAddresses }},
-                            "updateInterval": 10,
+                            "updateInterval": 10
                         }
                     ]
                 },

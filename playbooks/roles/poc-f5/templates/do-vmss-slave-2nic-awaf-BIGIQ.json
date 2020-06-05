@@ -79,10 +79,10 @@
       "class": "DeviceGroup",
       "type": "sync-failover",
       "members": {{ var_failoverGroup_members }},
-      "owner": "/Common/failoverGroup-{{ extra_vmss_name }}/members/0",
+      "owner": "/Common/failoverGroup-awaf/members/0",
       "autoSync": true,
       "saveOnAutoSync": false,
-      "networkFailover": false,
+      "networkFailover": true,
       "fullLoadOnSync": false,
       "asmSync": true
     },

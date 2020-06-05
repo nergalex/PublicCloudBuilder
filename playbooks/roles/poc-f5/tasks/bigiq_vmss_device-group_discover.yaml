@@ -18,7 +18,7 @@
       enable: yes
     force: yes
     use_bigiq_sync: yes
-    ha_name: "failoverGroup-{{ extra_vmss_name }}"
+    ha_name: "failoverGroup-awaf"
     provider:
       user: "{{ extra_bigiq_admin_user }}"
       password: "{{ extra_bigiq_admin_password }}"
