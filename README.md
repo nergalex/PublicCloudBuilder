@@ -97,6 +97,45 @@ In `poc-azure_create_hub_edge_security_inbound`, remove `virtual_network_gateway
 | `poc-nginx_onboarding_system_vm`              | `playbooks/poc-nginx_vm.yaml` | `onboarding_system`                   | `localhost`   | `localhost` | `cred_NGINX` |
 | `poc-nginx_onboarding_nginx_unit`             | `playbooks/poc-azure.yaml`    | `onboarding_nginx_unit`               | `localhost`   | `localhost` | `cred_NGINX` |
 
+
+| Extra variable| Description | Example of value      |
+| ------------- | ------------- | ------------- |
+| `extra_availability_zone`               | availability zones | `[1, 2]` |
+| `extra_external_subnet_address_prefix`  | BIG-IP dataplane subnet | `10.100.2.0/24` |
+| `extra_internal_subnet_address_prefix`  | NGINX South dataplane subnet | `10.100.2.0/24` |
+| `extra_gateway_subnet_address_prefix`   | Subnet dedicated to VPN GW | `10.100.255.0/24` |
+
+
+| `extra_app_protect_monitor_ip`          | Kibana for NGINX App Protect | `10.0.0.20` |
+| `extra_app_protect_repo`                | repo that stores NGINX App Protect install scripts | `http://10.0.0.19` |
+| `extra_dataplane_subnet_address_mask`   | eth1 subnet | `24` |
+| `extra_elb_management_name`             | External LB for outbound connection during install| `outbound-management-vmss-nginx-external` |
+| `extra_gw_dataplane`                    | eth1 GW | `10.100.1.1` |
+| `extra_gw_management`                   | eth0 GW | `10.100.0.1` |
+| `extra_key_data`                        | admin CRT | `-----BEGIN  CERTIFICATE-----XXXXXXX-----END CERTIFICATE-----` |
+| `extra_lb_dataplane_name`               | LB name for dataplane traffic | `external` |
+| `extra_lb_dataplane_type`               | LB type for dataplane traffic | `elb` |
+| `extra_location`                        | region | `eastus2` |
+| `extra_offer`                           | OS | `CentOS` |
+| `extra_publisher`                       | OS distrib | `OpenLogic` |
+| `extra_sku`                             | OS distrib version | `7.4` |
+| `extra_vm_size`                         | VM type | `Standard_DS3_v2` |
+| `extra_vmss_capacity`                   | initial vmss_capacity | `2` |
+| `extra_vmss_name`                       | logical vmss_name | `nginxwaf` |
+| `nginx_rpm_version`                     | Nginx+ version to install | `20` |
+| `extra_platform_name`                   | logical platform_name | `myPlatform` |
+| `extra_platform_tags`                   | logical platform_tags | `environment=DMO platform=Inbound project=CloudBuilderf5` |
+| `extra_project_name`                    | logical project_name | `CloudBuilderf5` |
+| `extra_route_prefix_on_premise`         | cross management subnet | `10.0.0.0/24` |
+| `extra_subnet_dataplane_name`           | logical name for eth1 subnet | `nginx` |
+| `extra_template_nginx_conf`             | jinja2 template for nginx.conf| `nginx_app_protect.conf` |
+| `extra_template_route`                  | jinja2 template for persistent route | `system_route_persistent-default_via_dataplane.conf` |
+| `extra_app_protect_monitor_ip`          | IP address of Kibana server | `10.0.0.20` |
+| `extra_nginx_key`                       | NGINX+ private key | `-----BEGIN  PRIVATE KEY-----XXXXXXX-----END PRIVATE KEY-----` |
+| `extra_nginx_crt`                       | NGINX+ certificate | `-----BEGIN  CERTIFICATE-----XXXXXXX-----END CERTIFICATE-----` |
+| `extra_webhook_email`                   | NGINX+ certificate | `admin@acme.com` |
+| `extra_webhook_vm_name`                 | NGINX+ certificate | `autoscale-f5` |
+
 ## NGINX south | NGINX ADC
 Create and launch a workflow template `wf-create_vmss_nginx_app_protect` that include those Job templates in this order:
 
@@ -254,13 +293,13 @@ Create and launch a workflow template `wf-create-app_inbound_awaf_device-group` 
 
 | Job name      | objective     | playbook      | activity      | inventory     | limit         | credential    |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| `poc-azure_create_vmss_app`                           | Create a VMSS for App hosting                     | `playbooks/poc-azure.yaml`        | `create-vmss-app`                       | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-azure_get-vmss_hub-facts`                        | Get info of BIG-IP VMSS                           | `playbooks/poc-azure.yaml`        | `get-vmss_hub-facts`                    | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-f5-create_as3_app_inbound_awaf_device-group`     | Deploy App Service (AS3) on BIG-IP                | `playbooks/poc-f5.yaml`           | `as3_vmss_device-group_bigiq_create`    | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-azure_get-vmss_nginx_first_line-facts`           | Get info of NGINX North VMSS                      | `playbooks/poc-azure.yaml`        | `get-vmss_nginx_first_line-facts`       | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-nginx_create_app_app_protect`                    | Deploy App Service on NGINX North                 | `playbooks/poc-nginx.yaml`        | `create_app_app_protect`                | `localhost` | `localhost` | `cred_NGINX` |
-| `poc-azure_get-vmss_nginx_second_line-facts`          | Get info of NGINX South VMSS                      | `playbooks/poc-azure.yaml`        | `get-vmss_nginx_second_line-facts`      | `localhost` | `localhost` | `cred_NGINX` |
-| `poc-nginx_create_app_adc`                            | Deploy App Service on NGINX South                 | `playbooks/poc-nginx.yaml`        | `create_app_adc`                        | `my_project` | `localhost` | `my_vmss_credential` |
+| `poc-azure_create_vmss_app`                           | Create a VMSS for App hosting                     | `playbooks/poc-azure.yaml`                | `create-vmss-app`                       | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_get-vmss_hub-facts`                        | Get info of BIG-IP VMSS                           | `playbooks/poc-azure.yaml`                | `get-vmss_hub-facts`                    | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-f5-create_as3_app_inbound_awaf_device-group`     | Deploy App Service (AS3) on BIG-IP                | `playbooks/poc-f5.yaml`                   | `as3_vmss_device-group_bigiq_create`    | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_get-vmss_nginx_first_line-facts`           | Get info of NGINX North VMSS                      | `playbooks/poc-azure.yaml`                | `get-vmss_nginx_first_line-facts`       | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-nginx_create_app_app_protect`                    | Deploy App Service on NGINX North                 | `playbooks/poc-nginx_master.yaml`         | `create_app_app_protect`                | `localhost` | `localhost` | `cred_NGINX` |
+| `poc-azure_get-vmss_nginx_second_line-facts`          | Get info of NGINX South VMSS                      | `playbooks/poc-azure.yaml`                | `get-vmss_nginx_second_line-facts`      | `localhost` | `localhost` | `cred_NGINX` |
+| `poc-nginx_create_app_adc`                            | Deploy App Service on NGINX South                 | `playbooks/poc-nginx_master.yaml`         | `create_app_adc`                        | `my_project` | `localhost` | `my_vmss_credential` |
 
 | Extra variable| Description   | Example of value      |
 | ------------- | ------------- | -------------         |
