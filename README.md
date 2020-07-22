@@ -56,11 +56,6 @@ Create custom credential `cred_NGINX` to manage access to VMs in VMSS
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | `Machine` | `my_VM_admin_user` | `my_VM_admin_user_key` | `my_VM_admin_user_CRT` | `sudo` |
 
-### Repo for NGINX App Protect
-Copy to a Web repository
-* ```app-protect-20.zip```
-* ```installAppProtect.sh```
-
 # Engineering
 ## Code
 * Deployment is based on `workflow template`. Example: `workflow template`=`wf-create_create_edge_security_inbound` ;
