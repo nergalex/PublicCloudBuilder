@@ -155,13 +155,13 @@ Create and launch a workflow template `wf-create_vmss_device-group_awaf` that in
 
 | Job name      | objective     | playbook      | activity      | inventory     | limit         | credential    |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| `poc-azure_create-vmss-bigip`                 |  | `create-vmss-bigip` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-azure_set-vmss-master_vm`                |  | `set-vmss-master_vm` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-azure_get-vmss-facts`                    |  | `get-vmss-facts` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-f5_do_vmss_device-group`                 |  | `do_vmss_device-group` | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-f5-as3_vmss_device-group_create_log_profile`  | `as3_vmss_device-group_create` |  | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-f5-bigiq_vmss_device-group_discover`     |  | `bigiq_vmss_device-group_discover` | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
-| `poc-azure_create-vmss-autoscale`             |  | `create-vmss-autoscale` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_create-vmss-bigip`                 |       | `create-vmss-bigip` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_set-vmss-master_vm`                |       | `set-vmss-master_vm` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_get-vmss-facts`                    |       | `get-vmss-facts` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-f5_do_vmss_device-group`                 |       | `do_vmss_device-group` | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-f5-as3_vmss_device-group_create_log_profile`     | `as3_vmss_device-group_create` |  | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-f5-bigiq_vmss_device-group_discover`     |       | `bigiq_vmss_device-group_discover` | `playbooks/poc-f5.yaml` | `my_project` | `localhost` | `my_azure_credential` |
+| `poc-azure_create-vmss-autoscale`             |       | `create-vmss-autoscale` | `playbooks/poc-azure.yaml` | `my_project` | `localhost` | `my_azure_credential` |
 
 | Extra variable        | Description | Example of value      |
 | -------------         | ------------- | ------------- |

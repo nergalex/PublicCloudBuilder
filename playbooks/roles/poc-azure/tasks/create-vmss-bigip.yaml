@@ -26,6 +26,11 @@
       name: "{{ extra_sku }}"
       product: "{{ extra_offer }}"
       publisher: f5-networks
+    data_disks:
+      - lun: 0
+        disk_size_gb: 128
+        caching: ReadWrite
+        managed_disk_type: Premium_LRS
     managed_disk_type: Premium_LRS
     os_type: Linux
     virtual_network_name: "vnet-{{ extra_platform_name }}"
